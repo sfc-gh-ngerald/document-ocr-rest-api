@@ -135,41 +135,6 @@ curl -s -X POST https://<ingress_url>/ocr \
   -F "file=@docs/Usage.pdf"
 ```
 
-### Using a PAT with the Python client
-
-```bash
-python3 ocr_client.py docs/Usage.pdf
-```
-
-The client auto-reads the PAT from `~/.snowflake/tokens/.coco_desktop_pat_demo_aws2`. You can also pass it explicitly:
-
-```bash
-python3 ocr_client.py --pat "$(cat ~/.snowflake/tokens/.coco_desktop_pat_demo_aws2)" docs/Usage.pdf
-```
-
-Or set the `SNOWFLAKE_PAT` environment variable:
-
-```bash
-export SNOWFLAKE_PAT="$(cat ~/.snowflake/tokens/.coco_desktop_pat_demo_aws2)"
-python3 ocr_client.py docs/Usage.pdf
-```
-
-### Multiple files in one command
-
-```bash
-python3 ocr_client.py docs/Usage.pdf docs/Active\ Contract.pdf docs/Data\ Sharing.pdf
-```
-
-### Using the client as a library
-
-```python
-from ocr_client import OCRClient
-
-client = OCRClient()
-result = client.ocr("docs/Usage.pdf")
-print(result["text"])
-```
-
 ## Usage (curl examples)
 
 ### Extract text from a PDF
@@ -294,7 +259,6 @@ DESCRIBE COMPUTE POOL OCR_POOL;
 ```
 document-ocr-rest-api/
   app.py              # FastAPI application (SPCS + local dev)
-  ocr_client.py       # Python client with PAT auth
   Dockerfile          # Container image definition
   requirements.txt    # Python dependencies
   docs/               # Sample PDFs for testing
